@@ -9,10 +9,12 @@ import './styles/iconfont.css'
 
 // import Vant from 'vant'
 // import 'vant/lib/index.css'
+import NewsInput from './components/NewsInput.vue'
 import { Button, Toast } from 'vant'
 
 Vue.use(Button)
 Vue.use(Toast)
+Vue.component('news-input', NewsInput)
 
 Vue.config.productionTip = false
 

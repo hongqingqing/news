@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <div class="close">
+    <div class="close" @click="$router.go(-1)">
       <i class="iconfont iconicon-test"></i>
     </div>
     <div class="logo">
@@ -16,21 +16,21 @@
     <div class="button">
       <van-button @click="login" round size="large" color="#CC3300">登录</van-button>
     </div>
+    <div class="go-register">
+      没有账号?去<router-link to='/register'>注册</router-link>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import NewsInput from '../components/NewsInput'
+
 export default {
   data () {
     return {
       username: '',
       password: ''
     }
-  },
-  components: {
-    'news-input': NewsInput
   },
   methods: {
     async login () {
@@ -47,6 +47,12 @@ export default {
         this.$toast.success('登录成功!')
       }
     }
+  },
+  created () {
+    console.log(this.$route)
+    const { username, password } = this.$route.params
+    this.username = username
+    this.password = password
   }
 }
 </script>
@@ -68,6 +74,11 @@ export default {
   }
   .button{
     margin-top: 40px;
+  }
+  .go-register{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
   }
 }
 

@@ -57,7 +57,7 @@ export default {
 
 <style lang="scss" scoped>
 .input_box{
-  padding-bottom: 15px;
+  padding-bottom: 20px;
   position: relative;
   .news-input{
     width: 100%;
