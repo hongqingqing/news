@@ -7,8 +7,12 @@ import './styles/base.css'
 // 导入字体图标文件
 import './styles/iconfont.css'
 
-var num = 20
-console.log(num)
+// import Vant from 'vant'
+// import 'vant/lib/index.css'
+import { Button, Toast } from 'vant'
+
+Vue.use(Button)
+Vue.use(Toast)
 
 Vue.config.productionTip = false
 

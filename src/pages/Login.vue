@@ -14,9 +14,7 @@
       v-model="password" :rules="/^.{3,12}$/" err-msg="输入的密码格式错误"></news-input>
     </div>
     <div class="button">
-      <news-button @click="login">
-        登录
-      </news-button>
+      <van-button @click="login" round size="large" color="#CC3300">登录</van-button>
     </div>
   </div>
 </template>
@@ -24,17 +22,15 @@
 <script>
 import axios from 'axios'
 import NewsInput from '../components/NewsInput'
-import NewsButton from '../components/NewsButton'
 export default {
   data () {
     return {
-      username: 'root',
-      password: '123455'
+      username: '',
+      password: ''
     }
   },
   components: {
-    'news-input': NewsInput,
-    'news-button': NewsButton
+    'news-input': NewsInput
   },
   methods: {
     async login () {
@@ -46,9 +42,9 @@ export default {
       })
       console.log(res)
       if (res.data.statusCode === 401) {
-        alert('登录失败')
+        this.$toast.fail('用户名或密码错误!')
       } else {
-        alert('登录成功')
+        this.$toast.success('登录成功!')
       }
     }
   }
