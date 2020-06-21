@@ -23,8 +23,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   data () {
     return {
@@ -36,7 +34,7 @@ export default {
     async login () {
       // console.log('登录么')
       if (!this.username || !this.password) return
-      const res = await axios.post('http://localhost:3000/login', {
+      const res = await this.$axios.post('/login', {
         username: this.username,
         password: this.password
       })
@@ -45,6 +43,11 @@ export default {
         this.$toast.fail('用户名或密码错误!')
       } else {
         this.$toast.success('登录成功!')
+        // 登录成功时保存token和用户id
+        const { token, user } = res.data.data
+        localStorage.setItem('token', token)
+        localStorage.setItem('id', user.id)
+        this.$router.push('/profile')
       }
     }
   },
