@@ -9,6 +9,8 @@ import Comment from '../pages/Comment.vue'
 import MyCollect from '../pages/MyCollect.vue'
 import Home from '../pages/Home.vue'
 import NewsDetails from '../pages/NewsDetails.vue'
+import TabManager from '../pages/TabManager.vue'
+import Search from '../pages/Search.vue'
 
 Vue.use(VueRouter)
 const router = new VueRouter({
@@ -22,7 +24,9 @@ const router = new VueRouter({
     { path: '/comment', component: Comment, name: 'comment' },
     { path: '/my-collect', component: MyCollect, name: 'my-collect' },
     { path: '/home', component: Home, name: 'home' },
-    { path: '/news-details/:id', component: NewsDetails, name: 'news-details' }
+    { path: '/news-details/:id', component: NewsDetails, name: 'news-details' },
+    { path: '/tab-manager', component: TabManager, name: 'tab-manager' },
+    { path: '/search', component: Search, name: 'search' }
 
   ]
 })
@@ -35,7 +39,7 @@ const AuthUrls = [
   '/my-collect'
 ]
 router.beforeEach(function (to, from, next) {
-  console.log('to', to)
+  // console.log('to', to)
   const token = localStorage.getItem('token')
   if (AuthUrls.includes(to.path)) {
     if (token) {

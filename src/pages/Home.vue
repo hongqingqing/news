@@ -4,7 +4,7 @@
       <div class="left">
         <i class="iconfont iconnew"></i>
       </div>
-      <div class="center">
+      <div class="center" @click="$router.push('/search')">
         <i class="iconfont iconsearch"></i>
         <span>搜索新闻</span>
       </div>
@@ -34,6 +34,7 @@
 <script>
 import NewsPost from '../components/NewsPost'
 export default {
+  name: 'home',
   components: {
     'news-post': NewsPost
   },
@@ -50,22 +51,34 @@ export default {
   },
   methods: {
     async getTabList () {
-      const res = await this.$axios.get('/category')
-      // console.log(res)
-      const { data } = res.data
-      // console.log(data)
-      data.forEach(item => {
+      const activeList = JSON.parse(localStorage.getItem('activeList'))
+      // debugger
+      if (activeList) {
+        activeList.forEach(item => {
+          item.postList = []
+          item.pageIndex = 1
+          item.finished = false
+        })
+        this.tabList = activeList
+        console.log(this.tabList)
+      } else {
+        const res = await this.$axios.get('/category')
+        // console.log(res)
+        const { data } = res.data
+        // console.log(data)
+        data.forEach(item => {
         // 每一个tab应该存储自己的pageIndex,pageSize和postList
-        item.postList = []
-        item.pageIndex = 1
-        item.finished = false
-      })
-      this.tabList = data
+          item.postList = []
+          item.pageIndex = 1
+          item.finished = false
+        })
+        this.tabList = data
       // console.log(this.tabList)
       // this.tabList.forEach(item => {
       //   // 给对象动态添加的属性不是响应式的,需要动态给item添加一个响应式的数据
       //   this.$set(item, 'postList', [])
       // })
+      }
     },
     async getPostList () {
       const res = await this.$axios.get('/post', {
@@ -77,7 +90,7 @@ export default {
       })
       // console.log(res)
       const { data } = res.data
-      // console.log(data)
+      console.log(data)
       this.tabList[this.active].postList = [...this.tabList[this.active].postList, ...data]
       console.log(this.tabList[this.active].postList)
       // 当数据加载完成时

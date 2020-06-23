@@ -73,7 +73,6 @@ export default {
 
 <style lang="scss" scoped>
 .comment{
-  padding-top: 15px;
   .item {
     border-bottom: 1px solid #ccc;
     padding: 15px;

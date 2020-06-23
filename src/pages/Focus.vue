@@ -18,7 +18,5 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.focus{
-  padding-top: 15px;
-}
+
 </style>

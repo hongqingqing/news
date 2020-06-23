@@ -37,7 +37,7 @@
     <!-- 评论区域 -->
     <div class="comment">
       <div class="title">精彩跟帖</div>
-      <news-comment v-for="item in commentList" :key="item.id" :comment="item"></news-comment>
+      <news-comment v-for="item in commentList" :key="item.id" :comment="item" @reply="reply"></news-comment>
     </div>
 
     <div class="footer">
@@ -51,8 +51,8 @@
         <i class="iconfont iconfenxiang"></i>
       </div>
       <div class="comment-taxtarea" v-else>
-        <textarea ref="textarea" placeholder="回复" @blur="showInput($event)"></textarea>
-        <div class="send">发送</div>
+        <textarea ref="textarea" placeholder="回复" @blur="showInput" v-model="content"></textarea>
+        <div class="send" @click="send">发送</div>
       </div>
     </div>
   </div>
@@ -70,7 +70,9 @@ export default {
         user: {}
       },
       isShowInput: true,
-      commentList: {}
+      commentList: {},
+      parentId: '',
+      content: ''
     }
   },
   methods: {
@@ -123,18 +125,45 @@ export default {
       this.$refs.textarea.focus()
     },
     showInput () {
+      // 如果textarea中有值,失去焦点时就不隐藏文本框
+      if (this.content) {
+        return
+      }
       this.isShowInput = true
     },
     async collect (id) {
       console.log('收藏的文章', id)
       await this.$axios.get(`/post_star/${id}`)
       this.getPostDetails()
+    },
+    async reply (id) {
+      console.log(id)
+      // 记录需要回复的评论的id
+      this.parentId = id
+      this.isShowInput = false
+      await this.$nextTick()
+      this.$refs.textarea.focus()
+    },
+    async send () {
+      // console.log('点击发送按钮')
+      const id = this.details.id
+      const res = await this.$axios.post(`/post_comment/${id}`, {
+        content: this.content,
+        parent_id: this.parentId
+      })
+      console.log(res)
+      this.getCommentList()
+      // 隐藏文本框
+      this.isShowInput = true
+      this.content = ''
+      this.parentId = ''
     }
   },
   watch: {
     $route () {
       // 监听路由的变化,如果路由改变,就重新发请求
       this.getPostDetails()
+      this.getCommentList()
     }
   },
   created () {

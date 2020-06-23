@@ -32,7 +32,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.my-collect{
-  padding-top: 15px;
-}
+
 </style>

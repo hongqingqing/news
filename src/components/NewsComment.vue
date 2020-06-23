@@ -4,17 +4,23 @@
       <img :src="avatar" alt="">
       <div class="info">
         <div class="name">{{comment.user.nickname}}</div>
-        <div class="time">{{comment.create_date|time}}</div>
+        <div class="time">{{comment.create_date|time('YYYY-MM-DD HH:mm:ss')}}</div>
       </div>
-      <div class="reply">回复</div>
+      <div class="reply" @click="reply(comment.id)">回复</div>
     </div>
+     <!-- 渲染楼层组件 -->
+     <floor v-if="comment.parent" :comment="comment.parent" @reply="reply"></floor>
     <div class="content">{{comment.content}}</div>
   </div>
 </template>
 
 <script>
 import img from '../1.jpg'
+import Floor from '../components/Floor'
 export default {
+  components: {
+    Floor
+  },
   props: {
     comment: Object
   },
@@ -25,6 +31,13 @@ export default {
       } else {
         return img
       }
+    }
+  },
+  methods: {
+    reply (id) {
+      console.log('reply生效了吗')
+
+      this.$emit('reply', id)
     }
   }
 }

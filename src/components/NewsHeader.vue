@@ -23,10 +23,10 @@ export default {
 <style lang="scss" scoped>
 .news-header{
   display: flex;
-  height: 30px;
-  line-height: 30px;
+  height: 50px;
+  line-height: 50px;
   text-align: center;
-  padding: 0 15px 0 15px;
+  padding: 0 10px;
   .left,
   .right{
     width: 20px;

@@ -45,7 +45,7 @@ axios.defaults.baseURL = 'http://localhost:3000'
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
-  console.log('请求拦截器', config)
+  // console.log('请求拦截器', config)
   // 判断浏览器是否有token,如果浏览器有token,就把token统一带上
   const token = localStorage.getItem('token')
   if (token) {
@@ -60,7 +60,7 @@ axios.interceptors.request.use(function (config) {
 // 添加响应拦截器
 axios.interceptors.response.use(function (response) {
   // 对响应数据做点什么
-  console.log('响应拦截器', response)
+  // console.log('响应拦截器', response)
   if (response.data.statusCode === 401 && response.data.message === '用户信息验证失败') {
     router.push('/login')
     localStorage.removeItem('token')

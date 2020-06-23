@@ -143,7 +143,6 @@ export default {
 
 <style lang="scss" scoped>
 .edit-profile{
-  padding-top: 15px;
   .avatar{
     padding-top: 50px;
     position: relative;

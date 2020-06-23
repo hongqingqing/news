@@ -20,6 +20,7 @@
       <cell-nav name="我的关注" desc="关注的用户" @click="focus"></cell-nav>
       <cell-nav name="我的跟帖" desc="跟帖/关注" @click="comment"></cell-nav>
       <cell-nav name="我的收藏" desc="文章/视频" @click="$router.push('/my-collect')"></cell-nav>
+      <cell-nav name="栏目管理" desc="自定义主页栏目管理" @click="$router.push('/tab-manager')"></cell-nav>
       <cell-nav name="设置" @click="edit"></cell-nav>
       <cell-nav name="退出登录" @click="logout"></cell-nav>
     </div>
@@ -93,7 +94,6 @@ export default {
 
 <style lang="scss" scoped>
 .profile{
-  padding-top: 15px;
   .user-info{
     display: flex;
     padding: 20px;
